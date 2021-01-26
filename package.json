@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
     "twitch": "^4.4.5",
     "twitch-auth": "^4.4.5",
     "twitch-chat-client": "^4.4.5",
