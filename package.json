@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "compile": "npm run tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/app.js",
+    "compile": "npx tsc"
   },
   "author": "",
   "license": "MIT",
