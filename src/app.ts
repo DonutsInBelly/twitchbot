@@ -1,6 +1,7 @@
 import { ApiClient, UserIdResolvable } from "twitch";
 import { RefreshableAuthProvider, StaticAuthProvider } from "twitch-auth";
 import { ChatClient } from "twitch-chat-client";
+import { PointManager } from "./util/PointManager";
 
 require("dotenv").config();
 
@@ -18,8 +19,10 @@ async function main() {
   );
   const apiClient = new ApiClient({ authProvider: auth });
   const chatClient = new ChatClient(auth, { channels: ["dominusbelli"] });
+  const pointManager = new PointManager();
   await chatClient.connect();
   chatClient.onMessage(async (channel, user, message) => {
+    const tokens = message.split(" ");
     if (message === "!ping") {
       chatClient.say(channel, "Pong!");
     } else if (message === "!dice") {
@@ -50,6 +53,42 @@ async function main() {
         chatClient.say(
           channel,
           `Couldn't find a user with the name of ${shoutout}`
+        );
+      }
+    } else if (message === "!points") {
+      const userCurrentPoints = await pointManager.getUserCurrentPoints(user);
+      chatClient.say(
+        channel,
+        `@${user}, you currently have *checks notes* ${userCurrentPoints} points!`
+      );
+    } else if (tokens[0] === "!gamble") {
+      try {
+        if (tokens[1]) {
+          const wager = Number(tokens[1]);
+          if (Number.isInteger(wager) && wager > 0) {
+            const result = await pointManager.gamble(user, wager);
+            chatClient.say(
+              channel,
+              `@${user} gambled and rolled a ${result.rolled} and ${
+                result.verb
+              } ${
+                result.verb === "won" ? wager * 2 : wager
+              } points! They now have ${result.newPoints} points! 🚀 💎 🙌`
+            );
+          } else {
+            throw Error(
+              `invalid input given, please enter a non-zero, positive integer! Invalid: ${tokens[1]}`
+            );
+          }
+        } else {
+          throw Error(
+            `could not read your wager! Please use the format !gamble <wager>`
+          );
+        }
+      } catch (e) {
+        chatClient.say(
+          channel,
+          `@${user} Woops! We hit an error: ${e.message}`
         );
       }
     }
