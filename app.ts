@@ -32,9 +32,6 @@ async function main() {
       );
     } else if (message.substring(0, 3).includes("!so")) {
       let shoutout = message.slice(4);
-      const channelChatInfo = await apiClient.unsupported.getChatters(
-        "dominusbelli"
-      );
       if (shoutout.startsWith("@")) {
         shoutout = shoutout.slice(1);
       }
