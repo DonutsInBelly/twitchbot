@@ -21,7 +21,7 @@ export class PointManager {
     const data = await this.getPointModel();
     const newUser: UserPoints = {
       user: user,
-      points: 250,
+      points: 1000000,
     };
     data.usersWithPoints.push(newUser);
     await fs.writeFile(this.filePath, JSON.stringify(data));
