@@ -96,11 +96,17 @@ async function main() {
         );
       }
     } else if (tokens[0] === "!convert") {
-      const converted = convert(parseFloat(tokens[1]))
-        .from(<unit>tokens[2])
-        .to(<unit>tokens[3]);
-
-      chatClient.say(channel, `@${user} ${converted} ${tokens[3]}`);
+      try {
+        const converted = convert(parseFloat(tokens[1]))
+          .from(<unit>tokens[2])
+          .to(<unit>tokens[3]);
+        chatClient.say(channel, `@${user} ${converted} ${tokens[3]}`);
+      } catch (e) {
+        chatClient.say(
+          channel,
+          `@${user} Usage: !convert <amount> <from unit> <to unit>. Use !possibilities <unit> to see possibilities for conversions!`
+        );
+      }
     } else if (tokens[0] === "!possibilities") {
       const possibilities = convert()
         .from(<unit>tokens[1])
