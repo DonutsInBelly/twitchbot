@@ -15,4 +15,7 @@ This bot is also free to use if you want use it for yourself!
 const chatClient = new ChatClient(auth, { channels: ["dominusbelli"] });
 ```
 
-Add whatever channels you want the bot to be in 5. `npm run compile` 6. `npm start`
+Add whatever channels you want the bot to be in 
+
+5. `npm run compile` 
+6. `npm start`
