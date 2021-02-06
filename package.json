@@ -10,6 +10,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@types/convert-units": "^2.3.3",
+    "convert-units": "^2.3.4",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
     "twitch": "^4.4.5",

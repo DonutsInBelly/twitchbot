@@ -2,6 +2,8 @@ import { ApiClient, UserIdResolvable } from "twitch";
 import { RefreshableAuthProvider, StaticAuthProvider } from "twitch-auth";
 import { ChatClient } from "twitch-chat-client";
 import { PointManager } from "./util/PointManager";
+import convert from "convert-units";
+import { unit } from "./typings/convertTypes";
 
 require("dotenv").config();
 
@@ -18,7 +20,9 @@ async function main() {
     }
   );
   const apiClient = new ApiClient({ authProvider: auth });
-  const chatClient = new ChatClient(auth, { channels: ["dominusbelli"] });
+  const chatClient = new ChatClient(auth, {
+    channels: ["dominusbelli", "mahcus_ttv"],
+  });
   const pointManager = new PointManager();
   await chatClient.connect();
   chatClient.onMessage(async (channel, user, message) => {
@@ -91,6 +95,20 @@ async function main() {
           `@${user} Woops! We hit an error: ${e.message}`
         );
       }
+    } else if (tokens[0] === "!convert") {
+      const converted = convert(parseFloat(tokens[1]))
+        .from(<unit>tokens[2])
+        .to(<unit>tokens[3]);
+
+      chatClient.say(channel, `@${user} ${converted} ${tokens[3]}`);
+    } else if (tokens[0] === "!possibilities") {
+      const possibilities = convert()
+        .from(<unit>tokens[1])
+        .possibilities();
+      chatClient.say(
+        channel,
+        `@${user} You can convert ${tokens[1]} to any of these: ${possibilities}`
+      );
     }
   });
 }
