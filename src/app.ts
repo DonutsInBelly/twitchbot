@@ -21,7 +21,7 @@ async function main() {
   );
   const apiClient = new ApiClient({ authProvider: auth });
   const chatClient = new ChatClient(auth, {
-    channels: ["dominusbelli", "mahcus_ttv"],
+    channels: ["dominusbelli"],
   });
   const pointManager = new PointManager();
   await chatClient.connect();
