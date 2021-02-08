@@ -201,5 +201,3 @@ declare class Convert {
 }
 
 declare function convert(value?: number): Convert;
-
-export = convert;
