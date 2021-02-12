@@ -21,7 +21,7 @@ async function main() {
   );
   const apiClient = new ApiClient({ authProvider: auth });
   const chatClient = new ChatClient(auth, {
-    channels: ["dominusbelli"],
+    channels: process.env.CHANNELS?.split(","),
   });
   const pointManager = new PointManager();
   await chatClient.connect();
@@ -35,7 +35,7 @@ async function main() {
     } else if (message === "!discord") {
       chatClient.say(
         channel,
-        `@${user} here's a link to the Discord community! https://discord.gg/hhAUwzcuwT`
+        `@${user} here's a link to the Discord community! ${process.env.DISCORD_SERVER_INVITE}`
       );
     } else if (message.substring(0, 3).includes("!so")) {
       let shoutout = message.slice(4);
