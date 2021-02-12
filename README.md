@@ -10,16 +10,8 @@ This bot is also free to use if you want use it for yourself!
 2. `npm install`
 3. Set up the `.env` file. See the next section on what goes in it.
 4. You may want to remove the `points.json` file if you don't want my currently set points for gambling
-5. In `src/app.ts`, look for a line that looks like this
-
-```
-const chatClient = new ChatClient(auth, { channels: ["dominusbelli"] });
-```
-
-Add whatever channels you want the bot to be in
-
-6. `npm run compile`
-7. `npm start`
+5. `npm run compile`
+6. `npm start`
 
 ## The .env File
 
