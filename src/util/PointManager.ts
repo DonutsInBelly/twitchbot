@@ -78,4 +78,18 @@ export class PointManager {
       throw Error("user does not have enough points to gamble");
     }
   }
+
+  async resetPoints(user: string) {
+    const data = await this.getPointModel();
+    const foundUser = data.usersWithPoints.find((element) => {
+      if (element.user === user) {
+        return element;
+      }
+    });
+    if (foundUser) {
+      foundUser.points = 1000000;
+      await fs.writeFile(this.filePath, JSON.stringify(data));
+      return foundUser.points;
+    }
+  }
 }

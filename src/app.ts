@@ -4,6 +4,7 @@ import { ChatClient } from "twitch-chat-client";
 import { PointManager } from "./util/PointManager";
 import convert from "convert-units";
 import { unit } from "./typings/convertTypes";
+import fetch from "node-fetch";
 
 require("dotenv").config();
 
@@ -115,6 +116,17 @@ async function main() {
         channel,
         `@${user} You can convert ${tokens[1]} to any of these: ${possibilities}`
       );
+    } else if (tokens[0] === "!y" || tokens[0] === "!n") {
+      if (tokens[0] === "!y") {
+        const r = await fetch("http://localhost:9090/vote/y");
+      } else {
+        const r = await fetch("http://localhost:9090/vote/n");
+      }
+      // !resetpoints username
+    } else if (tokens[0] === "!resetpoints") {
+      if (process.env.CHANNELS?.includes(user)) {
+        await pointManager.resetPoints(tokens[1]);
+      }
     }
   });
 }
