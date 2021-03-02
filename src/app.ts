@@ -5,6 +5,7 @@ import { PointManager } from "./util/PointManager";
 import convert from "convert-units";
 import { unit } from "./typings/convertTypes";
 import fetch from "node-fetch";
+import CommandHandler from "./CommandHandler";
 
 require("dotenv").config();
 
@@ -26,19 +27,17 @@ async function main() {
   });
   const pointManager = new PointManager();
   await chatClient.connect();
+  const commandHandler = new CommandHandler("./commands", "?");
   chatClient.onMessage(async (channel, user, message) => {
     const tokens = message.split(" ");
-    if (message === "!ping") {
-      chatClient.say(channel, "Pong!");
-    } else if (message === "!dice") {
-      const diceRoll = Math.floor(Math.random() * 6) + 1;
-      chatClient.say(channel, `@${user} rolled a ${diceRoll}`);
-    } else if (message === "!discord") {
-      chatClient.say(
-        channel,
-        `@${user} here's a link to the Discord community! ${process.env.DISCORD_SERVER_INVITE}`
-      );
-    } else if (message.substring(0, 3).includes("!so")) {
+    await commandHandler.getResponse({
+      apiClient,
+      chatClient,
+      channel,
+      user,
+      tokens,
+    });
+    if (message.substring(0, 3).includes("!so")) {
       let shoutout = message.slice(4);
       if (shoutout.startsWith("@")) {
         shoutout = shoutout.slice(1);
