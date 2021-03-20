@@ -24,18 +24,17 @@ export default class ShoutoutCommand extends BaseCommand {
         shoutout === "dominusbelli"
       ) {
         chatClient.timeout(channel, "shyxyla", 5);
-      } else {
-        const shoutoutUserInfo = await apiClient.helix.users.getUserByName(
-          shoutout
-        );
-        const shoutoutChannelInfo = await apiClient.helix.channels.getChannelInfo(
-          shoutoutUserInfo?.id as UserIdResolvable
-        );
-        chatClient.say(
-          channel,
-          `Check out @${shoutout}! They were last seen playing ${shoutoutChannelInfo?.gameName}! https://www.twitch.tv/${shoutout}`
-        );
       }
+      const shoutoutUserInfo = await apiClient.helix.users.getUserByName(
+        shoutout
+      );
+      const shoutoutChannelInfo = await apiClient.helix.channels.getChannelInfo(
+        shoutoutUserInfo?.id as UserIdResolvable
+      );
+      chatClient.say(
+        channel,
+        `Check out @${shoutout}! They were last seen playing ${shoutoutChannelInfo?.gameName}! https://www.twitch.tv/${shoutout}`
+      );
     } catch (e) {
       console.log(e);
       chatClient.say(
