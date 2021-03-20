@@ -1,11 +1,12 @@
-import { ApiClient, UserIdResolvable } from "twitch";
+import { ApiClient } from "twitch";
 import { RefreshableAuthProvider, StaticAuthProvider } from "twitch-auth";
 import { ChatClient } from "twitch-chat-client";
 import { PointManager } from "./util/PointManager";
 import convert from "convert-units";
 import { unit } from "./typings/convertTypes";
 import fetch from "node-fetch";
-import CommandHandler from "./CommandHandler";
+import { CommandHandler } from "threebot";
+import path from "path";
 
 require("dotenv").config();
 
@@ -21,14 +22,15 @@ async function main() {
       refreshToken,
     }
   );
-  const apiClient = new ApiClient({ authProvider: auth });
   const chatClient = new ChatClient(auth, {
     channels: process.env.CHANNELS?.split(","),
   });
   const pointManager = new PointManager();
   await chatClient.connect();
-  const commandHandler = new CommandHandler("./commands", "?");
+  const commandDir = path.join(__dirname, "./commands");
+  const commandHandler = new CommandHandler(commandDir, "!");
   chatClient.onMessage(async (channel, user, message) => {
+    const apiClient = new ApiClient({ authProvider: auth });
     const tokens = message.split(" ");
     await commandHandler.getResponse({
       apiClient,
@@ -37,29 +39,7 @@ async function main() {
       user,
       tokens,
     });
-    if (message.substring(0, 3).includes("!so")) {
-      let shoutout = message.slice(4);
-      if (shoutout.startsWith("@")) {
-        shoutout = shoutout.slice(1);
-      }
-      try {
-        const shoutoutUserInfo = await apiClient.helix.users.getUserByName(
-          shoutout
-        );
-        const shoutoutChannelInfo = await apiClient.helix.channels.getChannelInfo(
-          shoutoutUserInfo?.id as UserIdResolvable
-        );
-        chatClient.say(
-          channel,
-          `Check out @${shoutout}! They were last seen playing ${shoutoutChannelInfo?.gameName}! https://www.twitch.tv/${shoutout}`
-        );
-      } catch (e) {
-        chatClient.say(
-          channel,
-          `Couldn't find a user with the name of ${shoutout}`
-        );
-      }
-    } else if (message === "!points") {
+    if (message === "!points") {
       const userCurrentPoints = await pointManager.getUserCurrentPoints(user);
       chatClient.say(
         channel,
