@@ -19,9 +19,10 @@ export default class ShoutoutCommand extends BaseCommand {
       shoutout = shoutout.slice(1);
     }
     try {
+      const bannedWords = process.env.SHYXYLA_BANNED_WORDS || "";
       if (
         user.toLowerCase().includes("shyxyla") &&
-        shoutout === "dominusbelli"
+        shoutout.includes(bannedWords)
       ) {
         chatClient.timeout(channel, "shyxyla", 5);
       }
