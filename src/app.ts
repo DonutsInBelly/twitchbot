@@ -28,7 +28,10 @@ async function main() {
   const pointManager = new PointManager();
   await chatClient.connect();
   const commandDir = path.join(__dirname, "./commands");
-  const commandHandler = new CommandHandler(commandDir, "!");
+  const commandHandler = new CommandHandler(
+    commandDir,
+    process.env.PREFIX || "!"
+  );
   chatClient.onMessage(async (channel, user, message) => {
     const apiClient = new ApiClient({ authProvider: auth });
     const tokens = message.split(" ");
