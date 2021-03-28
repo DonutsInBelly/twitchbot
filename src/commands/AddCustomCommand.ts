@@ -2,10 +2,8 @@ import { BaseCommand, CommandExecInput } from "threebot";
 import CustomCommandsModel from "../model/CustomCommandsModel";
 
 export default class AddCustomCommand extends BaseCommand {
-  // private customCommandClient: CustomCommandsModel;
   constructor() {
     super("addcommand");
-    // this.customCommandClient = new CustomCommandsModel();
   }
 
   public async exec({

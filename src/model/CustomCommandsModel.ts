@@ -53,7 +53,6 @@ export default class CustomCommandsModel {
       const results = await this.collectionClient.findOne({
         name: commandName,
       });
-      console.log(results);
       return results;
     } else {
       throw new Error("Could not connect to collections in MongoDB.");
