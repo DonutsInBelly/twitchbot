@@ -35,6 +35,7 @@ export default class CustomCommandsModel {
         const custom = {
           name: commandName,
           response: commandResponse,
+          count: 0,
         };
         const insertResult = await this.collectionClient.insertOne(custom);
         if (insertResult.insertedCount != 1) {

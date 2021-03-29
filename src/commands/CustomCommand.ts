@@ -1,4 +1,5 @@
 import { BaseCommand, CommandExecInput } from "threebot";
+
 import CustomCommandsModel from "../model/CustomCommandsModel";
 
 export default class CustomCommand extends BaseCommand {
@@ -20,10 +21,17 @@ export default class CustomCommand extends BaseCommand {
         tokens[0].substr(1)
       );
       if (customResponse?.response) {
-        chatClient.say(channel, customResponse.response);
+        const str = fillTemplate(customResponse.response, {
+          user: user,
+          count: customResponse.count,
+        });
+        chatClient.say(channel, str);
       }
     } catch (error) {
       chatClient.say(channel, error);
     }
   }
 }
+
+const fillTemplate = (templateString: string, templateVariables: any) =>
+  templateString.replace(/\${(.*?)}/g, (_, g) => templateVariables[g]);
