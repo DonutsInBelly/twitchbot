@@ -49,35 +49,35 @@ async function main() {
         `@${user}, you currently have *checks notes* ${userCurrentPoints} points!`
       );
     } else if (tokens[0] === "!gamble") {
-      try {
-        if (tokens[1]) {
-          const wager = Number(tokens[1]);
-          if (Number.isInteger(wager) && wager > 0) {
-            const result = await pointManager.gamble(user, wager);
-            chatClient.say(
-              channel,
-              `@${user} gambled and rolled a ${result.rolled} and ${
-                result.verb
-              } ${
-                result.verb === "won" ? wager * 2 : wager
-              } points! They now have ${result.newPoints} points! 🚀 💎 🙌`
-            );
-          } else {
-            throw Error(
-              `invalid input given, please enter a non-zero, positive integer! Invalid: ${tokens[1]}`
-            );
-          }
-        } else {
-          throw Error(
-            `could not read your wager! Please use the format !gamble <wager>`
-          );
-        }
-      } catch (e) {
-        chatClient.say(
-          channel,
-          `@${user} Woops! We hit an error: ${e.message}`
-        );
-      }
+      // try {
+      //   if (tokens[1]) {
+      //     const wager = Number(tokens[1]);
+      //     if (Number.isInteger(wager) && wager > 0) {
+      //       const result = await pointManager.gamble(user, wager);
+      //       chatClient.say(
+      //         channel,
+      //         `@${user} gambled and rolled a ${result.rolled} and ${
+      //           result.verb
+      //         } ${
+      //           result.verb === "won" ? wager * 2 : wager
+      //         } points! They now have ${result.newPoints} points! 🚀 💎 🙌`
+      //       );
+      //     } else {
+      //       throw Error(
+      //         `invalid input given, please enter a non-zero, positive integer! Invalid: ${tokens[1]}`
+      //       );
+      //     }
+      //   } else {
+      //     throw Error(
+      //       `could not read your wager! Please use the format !gamble <wager>`
+      //     );
+      //   }
+      // } catch (e) {
+      //   chatClient.say(
+      //     channel,
+      //     `@${user} Woops! We hit an error: ${e.message}`
+      //   );
+      // }
     } else if (tokens[0] === "!convert") {
       try {
         const converted = convert(parseFloat(tokens[1]))
