@@ -15,7 +15,7 @@
     "dotenv": "^8.2.0",
     "mongodb": "^3.6.5",
     "node-fetch": "^2.6.1",
-    "threebot": "0.0.4",
+    "threebot": "^0.0.4",
     "twitch": "^4.5.0",
     "twitch-auth": "^4.5.0",
     "twitch-chat-client": "^4.5.0",
