@@ -26,6 +26,11 @@ export default class ShoutoutCommand extends BaseCommand {
           tokens.join(" ").includes(bannedWords))
       ) {
         chatClient.timeout(channel, "shyxyla", 5);
+        chatClient.say(
+          channel,
+          "shyxylUno shyxylUno shyxylUno shyxylUno shyxylUno shyxylUno shyxylUno shyxylUno shyxylUno shyxylUno "
+        );
+        shoutout = user;
       }
       const shoutoutUserInfo = await apiClient.helix.users.getUserByName(
         shoutout
