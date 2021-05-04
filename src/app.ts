@@ -75,6 +75,20 @@ async function main() {
       }
     }
   });
+  const tofuChatClient = new ChatClient(auth, {
+    channels: ["LaterTofu"],
+  });
+  await tofuChatClient.connect();
+  tofuChatClient.onMessage(async (channel, user, message) => {
+    if (message.includes("!raffle")) {
+      setTimeout(() => {
+        tofuChatClient.say(channel, "!join");
+      }, 5000);
+      setTimeout(() => {
+        tofuChatClient.say(channel, "!gs");
+      }, 632000);
+    }
+  });
 }
 
 main();
