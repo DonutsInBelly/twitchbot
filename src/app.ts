@@ -80,7 +80,7 @@ async function main() {
   });
   await tofuChatClient.connect();
   tofuChatClient.onMessage(async (channel, user, message) => {
-    if (message.includes("!raffle")) {
+    if (message.toLowerCase().includes("!raffle")) {
       setTimeout(() => {
         tofuChatClient.say(channel, "!join");
       }, 5000);
