@@ -49,6 +49,22 @@ export default class CustomCommandsModel {
     }
   }
 
+  public async editCustomCommand(commandName: string, commandValue: string) {
+    if (this.collectionClient) {
+      const results = await this.collectionClient.findOneAndUpdate(
+        { name: commandName },
+        { $set: { response: commandValue } }
+      );
+      if (results.ok === 1) {
+        return true;
+      } else {
+        throw new Error(`Could not update command ${commandName}.`);
+      }
+    } else {
+      throw new Error("Could not connect to collections in MongoDB.");
+    }
+  }
+
   public async findCustomCommand(commandName: string) {
     if (this.collectionClient) {
       const results = await this.collectionClient.findOne({
