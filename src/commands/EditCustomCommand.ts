@@ -13,7 +13,6 @@ export default class EditCustomCommand extends BaseCommand {
     user,
     tokens,
   }: CommandExecInput) {
-    chatClient.say(channel, "pog");
     try {
       const customCommandClient = new CustomCommandsModel();
       await customCommandClient.connect();
