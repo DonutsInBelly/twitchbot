@@ -9,6 +9,13 @@ import { CommandHandler } from "threebot";
 import path from "path";
 
 require("dotenv").config();
+function tofuCheck(message: string): boolean {
+  const tokens = message.split(" ");
+  return (
+    tokens[0].toLowerCase().includes("!") &&
+    Number.isInteger(parseInt(tokens[1]))
+  );
+}
 
 async function main() {
   const clientId = process.env.TWITCH_CLIENT_ID || "";
@@ -80,7 +87,7 @@ async function main() {
   });
   await tofuChatClient.connect();
   tofuChatClient.onMessage(async (channel, user, message) => {
-    if (message.toLowerCase().includes("!raffle")) {
+    if (tofuCheck(message)) {
       setTimeout(() => {
         tofuChatClient.say(channel, "!join");
       }, 5000);
