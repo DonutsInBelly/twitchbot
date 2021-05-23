@@ -87,7 +87,7 @@ async function main() {
   });
   await tofuChatClient.connect();
   tofuChatClient.onMessage(async (channel, user, message) => {
-    if (tofuCheck(message)) {
+    if (tofuCheck(message) && user.toLowerCase() === "latertofu") {
       setTimeout(() => {
         tofuChatClient.say(channel, "!join");
       }, 5000);
