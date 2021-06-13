@@ -92,7 +92,7 @@ async function main() {
         tofuChatClient.say(channel, "!join");
       }, 5000);
       setTimeout(() => {
-        tofuChatClient.say(channel, "!gs");
+        tofuChatClient.say(channel, "Stimmy? latert1OwO");
       }, 632000);
     }
   });
