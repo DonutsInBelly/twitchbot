@@ -91,9 +91,9 @@ async function main() {
       setTimeout(() => {
         tofuChatClient.say(channel, "!join");
       }, 5000);
-      setTimeout(() => {
-        tofuChatClient.say(channel, "Stimmy? latert1OwO");
-      }, 632000);
+      // setTimeout(() => {
+      //   tofuChatClient.say(channel, "Stimmy? latert1OwO");
+      // }, 632000);
     }
   });
 }
