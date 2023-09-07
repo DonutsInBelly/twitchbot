@@ -22,6 +22,10 @@ export default class PointsModel {
     this.collectionClient = dbClient.collection(this.collectionName);
   }
 
+  public async disconnect() {
+    await this.client.close();
+  }
+
   public async addUser(user: string) {
     if (this.collectionClient) {
       const defaultPoints = process.env.DEFAULT_POINTS_VALUE || "9999";

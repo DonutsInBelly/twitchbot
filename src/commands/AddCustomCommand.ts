@@ -13,8 +13,8 @@ export default class AddCustomCommand extends BaseCommand {
     user,
     tokens,
   }: CommandExecInput) {
+    const customCommandClient = new CustomCommandsModel();
     try {
-      const customCommandClient = new CustomCommandsModel();
       await customCommandClient.connect();
       await customCommandClient.addCommand(
         tokens[1],
@@ -22,7 +22,9 @@ export default class AddCustomCommand extends BaseCommand {
       );
       chatClient.say(channel, "Command was successfully added.");
     } catch (error) {
-      chatClient.say(channel, error);
+      chatClient.say(channel, error as string);
+    } finally {
+      await customCommandClient.disconnect();
     }
   }
 }

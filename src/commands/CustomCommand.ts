@@ -28,7 +28,7 @@ export default class CustomCommand extends BaseCommand {
         chatClient.say(channel, str);
       }
     } catch (error) {
-      chatClient.say(channel, error);
+      chatClient.say(channel, error as string);
     }
   }
 }

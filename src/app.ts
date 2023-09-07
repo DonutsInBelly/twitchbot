@@ -1,5 +1,6 @@
 import { ApiClient } from "twitch";
 import { RefreshableAuthProvider, StaticAuthProvider } from "twitch-auth";
+import { DirectConnectionAdapter, EventSubListener } from "twitch-eventsub";
 import { ChatClient } from "twitch-chat-client";
 import { PointManager } from "./util/PointManager";
 import convert from "convert-units";
@@ -39,8 +40,12 @@ async function main() {
     commandDir,
     process.env.PREFIX || "!"
   );
+  const apiClient = new ApiClient({ authProvider: auth });
+
+  // ****************
+  // Message Handler
+  // ****************
   chatClient.onMessage(async (channel, user, message) => {
-    const apiClient = new ApiClient({ authProvider: auth });
     const tokens = message.split(" ");
     await commandHandler.getResponse({
       apiClient,
@@ -80,20 +85,6 @@ async function main() {
       if (process.env.CHANNELS?.includes(user)) {
         await pointManager.resetPoints(tokens[1]);
       }
-    }
-  });
-  const tofuChatClient = new ChatClient(auth, {
-    channels: ["LaterTofu"],
-  });
-  await tofuChatClient.connect();
-  tofuChatClient.onMessage(async (channel, user, message) => {
-    if (tofuCheck(message) && user.toLowerCase() === "latertofu") {
-      setTimeout(() => {
-        tofuChatClient.say(channel, "!join");
-      }, 5000);
-      // setTimeout(() => {
-      //   tofuChatClient.say(channel, "Stimmy? latert1OwO");
-      // }, 632000);
     }
   });
 }

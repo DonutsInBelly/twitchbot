@@ -26,6 +26,10 @@ export default class CustomCommandsModel {
     this.collectionClient = dbClient.collection(this.collectionName);
   }
 
+  public async disconnect() {
+    await this.client.close();
+  }
+
   public async addCommand(commandName: string, commandResponse: string) {
     if (this.collectionClient) {
       const initialQuery = await this.collectionClient.find({

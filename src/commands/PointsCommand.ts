@@ -13,8 +13,8 @@ export default class PointsCommand extends BaseCommand {
     user,
     tokens,
   }: CommandExecInput) {
+    const pointsModelClient = new PointsModel();
     try {
-      const pointsModelClient = new PointsModel();
       await pointsModelClient.connect();
 
       const pointsResponse = await pointsModelClient.getPoints(user);
@@ -26,7 +26,9 @@ export default class PointsCommand extends BaseCommand {
         );
       }
     } catch (error) {
-      chatClient.say(channel, error);
+      chatClient.say(channel, error as string);
+    } finally {
+      await pointsModelClient.disconnect();
     }
   }
 }

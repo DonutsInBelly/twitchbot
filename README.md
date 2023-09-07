@@ -1,6 +1,6 @@
 # Carlin's Twitch Bot
 
-Hello! This is a bot that I have been building for my streams and I pretty much built most of it on stream! If you're interested in what' goes on in the development of the bot, visit my channel at https://www.twitch.tv/dominusbelli
+Hello! This is a bot that I have been building for my streams and I pretty much built most of it on stream! If you're interested in what' goes on in the development of the bot, visit my channel at https://www.twitch.tv/donutsinbelly
 
 This bot is also free to use if you want use it for yourself!
 
@@ -60,7 +60,7 @@ https://id.twitch.tv/oauth2/token?client_id=CLIENT_ID
 ```
 {
   "access_token": "0123456789abcdefghijABCDEFGHIJ",
-  "refresh_token": "eyJfaWQmNzMtNGCJ9%6VFV5LNrZFUj8oU231/3Aj",
+  "refresh_token": "0123456789abcdefghijABCDEFGHIJ",
   "expires_in": 3600,
   "scope": ["chat:read", "chat:edit"],
   "token_type": "bearer"
